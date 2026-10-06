@@ -1,0 +1,268 @@
+@import "tailwindcss";
+
+@theme {
+  /* 42 Visual Identity & Marketplace */
+  --color-brand-42: #00babc;
+  --color-brand-42-light: #26e5e8;
+  --color-brand-42-dark: #009698;
+  --color-brand-42-glow: rgba(0, 186, 188, 0.25);
+
+  --color-accent-coral: #ff5e36;
+  --color-accent-coral-hover: #eb4e27;
+  --color-accent-amber: #f59e0b;
+  --color-accent-emerald: #10b981;
+  --color-accent-indigo: #6366f1;
+
+  /* Surfaces & Neutral Slate */
+  --color-surface-base: #f8fafc;
+  --color-surface-card: #ffffff;
+  --color-surface-muted: #f1f5f9;
+  --color-slate-850: #131c2e;
+  --color-slate-925: #0a0f1d;
+  --color-slate-950: #050811;
+
+  /* Typography */
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  /* Shadows & Glows */
+  --shadow-card: 0 1px 3px 0 rgba(15, 23, 42, 0.06), 0 1px 2px -1px rgba(15, 23, 42, 0.04);
+  --shadow-card-hover: 0 20px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04), 0 0 0 1px rgba(0, 186, 188, 0.15);
+  --shadow-glow-cyan: 0 0 25px -5px rgba(0, 186, 188, 0.35);
+  --shadow-glow-coral: 0 0 25px -5px rgba(255, 94, 54, 0.35);
+}
+
+/* Base & Typography */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    background-color: var(--color-surface-base, #f8fafc);
+    color: #0f172a;
+    font-family: var(--font-sans);
+    min-height: 100vh;
+    /* A long word without spaces (bio, message, title...) must not blow up the
+       layout, including inside flex/grid containers. `anywhere` breaks the word
+       only when it would overflow, and unlike `break-word` it also lowers the
+       min-content width, so flex/grid children are allowed to shrink. */
+    overflow-wrap: anywhere;
+  }
+
+  /* 42 Brand text selection */
+  ::selection {
+    background-color: #00babc;
+    color: #ffffff;
+  }
+}
+
+/* Modern & subtle scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Design System Effects & Utilities */
+@layer utilities {
+  /* Glassmorphism effect */
+  .glass {
+    background: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+  }
+
+  .glass-dark {
+    background: rgba(15, 23, 42, 0.82);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-cyan {
+    background: rgba(0, 186, 188, 0.08);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 186, 188, 0.2);
+  }
+
+  /* Background patterns (Tech Grid & Dots) */
+  .bg-grid-subtle {
+    background-size: 32px 32px;
+    background-image: 
+      linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px);
+  }
+
+  .bg-dots-subtle {
+    background-image: radial-gradient(rgba(15, 23, 42, 0.08) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  /* Striking text gradients */
+  .text-gradient-42 {
+    background: linear-gradient(135deg, #00babc 0%, #00e5be 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-coral {
+    background: linear-gradient(135deg, #ff5e36 0%, #ff9066 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-dark {
+    background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* Neon glow & interactive cards */
+  .glow-42 {
+    box-shadow: 0 0 20px -2px rgba(0, 186, 188, 0.4);
+  }
+
+  .card-premium {
+    background: #ffffff;
+    border: 1px solid rgba(226, 232, 240, 0.8);
+    box-shadow: 0 1px 3px 0 rgba(15, 23, 42, 0.04);
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .card-premium:hover {
+    transform: translateY(-3px);
+    border-color: rgba(0, 186, 188, 0.3);
+    box-shadow: 0 16px 24px -6px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(0, 186, 188, 0.2);
+  }
+
+  /* Shimmer animation for Skeleton Loading */
+  .shimmer-loading {
+    background: linear-gradient(
+      90deg,
+      rgba(241, 245, 249, 1) 0%,
+      rgba(226, 232, 240, 0.6) 50%,
+      rgba(241, 245, 249, 1) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.6s infinite linear;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Tremor & SVG Chart Fills for Tailwind CSS v4 */
+.fill-cyan-500, svg .fill-cyan-500, .recharts-pie-sector.fill-cyan-500 { fill: #00babc !important; }
+.fill-blue-500, svg .fill-blue-500, .recharts-pie-sector.fill-blue-500 { fill: #3b82f6 !important; }
+.fill-emerald-500, svg .fill-emerald-500, .recharts-pie-sector.fill-emerald-500 { fill: #10b981 !important; }
+.fill-amber-500, svg .fill-amber-500, .recharts-pie-sector.fill-amber-500 { fill: #f59e0b !important; }
+.fill-violet-500, svg .fill-violet-500, .recharts-pie-sector.fill-violet-500 { fill: #8b5cf6 !important; }
+.fill-indigo-500, svg .fill-indigo-500, .recharts-pie-sector.fill-indigo-500 { fill: #6366f1 !important; }
+.fill-rose-500, svg .fill-rose-500, .recharts-pie-sector.fill-rose-500 { fill: #f43f5e !important; }
+.fill-gray-500, svg .fill-gray-500, .recharts-pie-sector.fill-gray-500 { fill: #64748b !important; }
+
+.text-cyan-500 { color: #00babc !important; }
+.text-blue-500 { color: #3b82f6 !important; }
+.text-emerald-500 { color: #10b981 !important; }
+.text-amber-500 { color: #f59e0b !important; }
+.text-violet-500 { color: #8b5cf6 !important; }
+.text-indigo-500 { color: #6366f1 !important; }
+.text-rose-500 { color: #f43f5e !important; }
+
+.bg-cyan-500 { background-color: #00babc !important; }
+.bg-blue-500 { background-color: #3b82f6 !important; }
+.bg-emerald-500 { background-color: #10b981 !important; }
+.bg-amber-500 { background-color: #f59e0b !important; }
+.bg-violet-500 { background-color: #8b5cf6 !important; }
+.bg-indigo-500 { background-color: #6366f1 !important; }
+.bg-rose-500 { background-color: #f43f5e !important; }
+
+.stroke-tremor-background, svg path.stroke-tremor-background { stroke: #ffffff !important; stroke-width: 2px; }
+.dark .stroke-dark-tremor-background, svg path.dark\:stroke-dark-tremor-background { stroke: #0f172a !important; stroke-width: 2px; }
+
+/* Print & PDF Export Styles */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm;
+  }
+
+  /* Hide non-printable navigation and utility elements */
+  header,
+  footer,
+  nav,
+  .print\:hidden {
+    display: none !important;
+  }
+
+  /* Preserve chart and card colors */
+  body {
+    background-color: #ffffff !important;
+    color: #0f172a !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Cancel the fixed navbar offset */
+  .pt-16 {
+    padding-top: 0 !important;
+  }
+
+  /* Center and size Recharts charts for printing */
+  .recharts-responsive-container {
+    width: 100% !important;
+  }
+  .recharts-wrapper {
+    margin: 0 auto !important;
+  }
+
+  /* Avoid cutting cards and tables across a page break */
+  article,
+  section,
+  table,
+  tr,
+  .rounded-2xl {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Remove shadows for crisp print output */
+  * {
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+}

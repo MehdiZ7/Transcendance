@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#09101d" />
+      <stop offset="50%" stop-color="#14213d" />
+      <stop offset="100%" stop-color="#0b1120" />
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="45%">
+      <stop offset="0%" stop-color="#00babc" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#00babc" stop-opacity="0" />
+    </radialGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#bg)" />
+  <rect width="800" height="600" fill="url(#glow)" />
+
+  <!-- Subtle circuit tech lines -->
+  <g opacity="0.1" stroke="#00babc" stroke-width="1.5" fill="none">
+    <path d="M 50 150 L 250 150 L 300 200" />
+    <circle cx="50" cy="150" r="4" fill="#00babc" />
+    <path d="M 750 450 L 550 450 L 500 400" />
+    <circle cx="750" cy="450" r="4" fill="#00babc" />
+  </g>
+
+  <!-- Central Device / Keyboard Emblem -->
+  <g transform="translate(400, 260)" filter="url(#shadow)">
+    <circle r="72" fill="#1e293b" stroke="#334155" stroke-width="2" />
+    <circle r="60" fill="#0f172a" stroke="#00babc" stroke-width="2" />
+    
+    <!-- Tech / Keyboard Icon -->
+    <rect x="-30" y="-18" width="60" height="36" rx="6" fill="none" stroke="#00babc" stroke-width="2.5" />
+    <line x1="-22" y1="-9" x2="-14" y2="-9" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" />
+    <line x1="-6" y1="-9" x2="2" y2="-9" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" />
+    <line x1="10" y1="-9" x2="22" y2="-9" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" />
+    
+    <line x1="-22" y1="0" x2="-14" y2="0" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" />
+    <line x1="-6" y1="0" x2="2" y2="0" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" />
+    <line x1="10" y1="0" x2="22" y2="0" stroke="#94a3b8" stroke-width="2" stroke-linecap="round" />
+    
+    <line x1="-14" y1="9" x2="14" y2="9" stroke="#00babc" stroke-width="2" stroke-linecap="round" />
+  </g>
+
+  <g transform="translate(400, 390)" text-anchor="middle">
+    <rect x="-60" y="-14" width="120" height="28" rx="14" fill="#00babc" fill-opacity="0.15" stroke="#00babc" stroke-width="1" />
+    <text y="4" fill="#00babc" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" letter-spacing="1">OBJET & TECH</text>
+  </g>
+
+  <text x="400" y="445" text-anchor="middle" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="600">
+    Matériel & Accessoires
+  </text>
+  <text x="400" y="475" text-anchor="middle" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="14">
+    Claviers, écrans, composants, périphériques
+  </text>
+</svg>

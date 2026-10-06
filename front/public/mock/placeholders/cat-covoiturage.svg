@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0b1716" />
+      <stop offset="50%" stop-color="#112a27" />
+      <stop offset="100%" stop-color="#081312" />
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="45%">
+      <stop offset="0%" stop-color="#10b981" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#10b981" stop-opacity="0" />
+    </radialGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <rect width="800" height="600" fill="url(#bg)" />
+  <rect width="800" height="600" fill="url(#glow)" />
+
+  <!-- Car / Mobility Icon -->
+  <g transform="translate(400, 260)" filter="url(#shadow)">
+    <circle r="72" fill="#1e293b" stroke="#334155" stroke-width="2" />
+    <circle r="60" fill="#0f172a" stroke="#10b981" stroke-width="2" />
+    
+    <!-- Car silhouette -->
+    <path d="M -24 6 L -20 -10 C -18 -16 -12 -18 -4 -18 L 4 -18 C 12 -18 18 -16 20 -10 L 24 6 L 26 12 C 26 15 24 16 22 16 L -22 16 C -24 16 -26 15 -26 12 Z" 
+          fill="none" stroke="#10b981" stroke-width="2.5" stroke-linejoin="round" />
+    <circle cx="-14" cy="16" r="4" fill="#10b981" />
+    <circle cx="14" cy="16" r="4" fill="#10b981" />
+    <path d="M -16 -8 L -12 -14 L 12 -14 L 16 -8 Z" fill="none" stroke="#94a3b8" stroke-width="2" />
+    <circle cx="-17" cy="8" r="2.5" fill="#fef08a" />
+    <circle cx="17" cy="8" r="2.5" fill="#fef08a" />
+  </g>
+
+  <g transform="translate(400, 390)" text-anchor="middle">
+    <rect x="-70" y="-14" width="140" height="28" rx="14" fill="#10b981" fill-opacity="0.15" stroke="#10b981" stroke-width="1" />
+    <text y="4" fill="#10b981" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" letter-spacing="1">COVOITURAGE</text>
+  </g>
+
+  <text x="400" y="445" text-anchor="middle" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="600">
+    Trajets & Mobilité Campus
+  </text>
+  <text x="400" y="475" text-anchor="middle" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="14">
+    Partage de trajets quotidiens, week-ends & events 42
+  </text>
+</svg>

@@ -1,0 +1,31 @@
+# /sgoinfre is nfs4 mounted with sec=krb5
+# The NFS server authorizes every request by the Kerberos ticket of the calling host UID, not by mode bits
+# api runs as container UID 1001 (user: in docker-compose.dev.yml, USER appuser in backend/Dockerfile)
+# Rootless podman maps container 1001 → host UID 44623941 (subuid range flomulle:44622941:65536)
+# That UID has no Kerberos ticket → Permission denied on any file under /sgoinfre, even 644 ones
+# db works because the postgres entrypoint reads /run/secrets/* as container root (= host 44522941 = the logged-in user, who holds the ticket)
+# web works because the development stage runs as root
+# Repro: same 644 root-owned file, same UID 1001, bind-mounted (no dir traversal): tmpfs copy reads fine, /sgoinfre copy is denied
+
+# Chosen fix: podman --userns=keep-id:uid=1001,gid=1001 — maps the host user to container UID 1001
+# so appuser stays non-root in the container but is the ticket-holding user on the host
+# podman-compose 1.6.0 exposes this as the userns_mode service key (podman_compose.py:1408-1410)
+# The pod is created with --infra=false --share= (podman-compose default, resolve_pod_args), so per-container --userns is honored
+
+services:
+  api:
+    userns_mode: "keep-id:uid=${UID:-1001},gid=${GID:-1001}"
+    volumes:
+      - media:/srv/media:U
+  # Same fix for the monitoring images, mapped to each image's own non-root UID
+  # (prometheus/postgres-exporter: nobody = 65534, grafana: 472)
+  # A volume created under another mapping (e.g. an older user: "0:0") is not writable anymore:
+  # podman-compose 1.6.0 drops :U on named volumes, so remove the volume or chown it with podman unshare
+  prometheus:
+    userns_mode: "keep-id:uid=65534,gid=65534"
+  grafana:
+    userns_mode: "keep-id:uid=472,gid=472"
+  postgres-exporter:
+    userns_mode: "keep-id:uid=65534,gid=65534"
+
+

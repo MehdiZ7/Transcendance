@@ -1,0 +1,55 @@
+[project]
+name = "app"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "flomulle", email = "flomulle@student.42.fr" },
+    { name = "lmilando", email = "lmilando@student.42.fr" }
+]
+requires-python = ">=3.14"
+dependencies = [
+    "alembic>=1.19.2",
+    "asyncpg>=0.31.0",
+    "fastapi[all]>=0.141.1",
+    "prometheus-fastapi-instrumentator>=8.1.0",
+    "httpx>=0.28.1",
+    "pydantic>=2.13.5",
+    "pydantic-settings>=2.15.0",
+    "pyjwt>=2.15.1",
+    "sqlalchemy[asyncio]>=2.0.52",
+    "uvicorn>=0.52.4",
+    "websockets>=17.1",
+    "pillow>=12.3.0",
+    "argon2-cffi>=25.1.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.12.3,<0.13.0"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "app"
+module-root = "src"
+
+[dependency-groups]
+dev = [
+    "mypy>=2.3.1",
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.0",
+    "pytest-cov>=7.1.0",
+    "ruff>=0.16.6",
+]
+
+[tool.ruff.lint.flake8-bugbear]
+extend-immutable-calls = ["fastapi.Depends", "fastapi.Query", "fastapi.Path"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "session"
+asyncio_default_test_loop_scope = "session"
+filterwarnings = [
+    "ignore::DeprecationWarning:starlette.testclient",
+    "ignore:Using `httpx`:DeprecationWarning",
+]

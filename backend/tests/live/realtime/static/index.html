@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Realtime bench</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/app.js" defer></script>
+</head>
+<body>
+  <header class="top">
+    <h1>Realtime bench</h1>
+    <span id="server-status" class="badge">connecting…</span>
+    <span id="server-config" class="muted"></span>
+  </header>
+
+  <main class="layout">
+    <aside class="server">
+      <section class="card">
+        <h2>Publish</h2>
+        <p class="hint">What business code does after a commit.</p>
+        <form id="publish-form" class="stack">
+          <label>type <input name="type" value="announcement" required></label>
+          <div class="row">
+            <label>kind <input name="topic_kind" value="conversation" required></label>
+            <label>id <input name="topic_id" value="42"></label>
+          </div>
+          <label>payload
+            <textarea name="payload" rows="3" spellcheck="false">{"text": "hello from the server"}</textarea>
+          </label>
+          <div class="row">
+            <button type="submit">Publish</button>
+            <output name="result" class="muted"></output>
+          </div>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Burst</h2>
+        <p class="hint">
+          N events in one go, nobody can flush in between: more than the queue
+          limit gaps every subscriber (close 1013, then resume answers <code>gap</code>).
+        </p>
+        <form id="burst-form" class="stack">
+          <div class="row">
+            <label>kind <input name="topic_kind" value="conversation" required></label>
+            <label>id <input name="topic_id" value="42"></label>
+          </div>
+          <div class="row">
+            <label>count <input name="count" type="number" min="1" max="1000" value="50"></label>
+            <button type="submit">Burst</button>
+          </div>
+          <output name="result" class="muted"></output>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Registry <span id="session-count" class="muted"></span></h2>
+        <div class="table-wrap">
+          <table id="sessions">
+            <thead>
+              <tr><th>token</th><th>user</th><th>state</th><th>epoch</th><th>seq</th><th>pend.</th><th>idle</th><th>topics</th></tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <h3>Broker</h3>
+        <ul id="topics" class="chips"></ul>
+      </section>
+    </aside>
+
+    <section class="clients">
+      <form id="add-client" class="card toolbar">
+        <label>user <input name="principal" value="alice" required pattern="[\w.\-]+" maxlength="32"></label>
+        <button type="submit">Add client</button>
+        <span class="hint">
+          One card = one browser tab. Try <code>admin</code> for <code>conversation:secret</code>.
+        </span>
+      </form>
+      <div id="clients" class="client-grid"></div>
+    </section>
+  </main>
+
+  <template id="client-template">
+    <article class="card client">
+      <header class="client-head">
+        <strong class="principal"></strong>
+        <span class="badge state"></span>
+        <span class="muted meta"></span>
+        <button type="button" class="icon remove" title="Remove this client">×</button>
+      </header>
+
+      <div class="row wrap">
+        <button type="button" data-action="connect">Connect</button>
+        <button type="button" data-action="disconnect" title="Clean close, stays down">Disconnect</button>
+        <button type="button" data-action="drop" title="Like a network loss: reconnects and resumes">Drop</button>
+        <button type="button" data-action="clone" title="New card resuming this token: takeover">Takeover</button>
+        <button type="button" data-action="forget" title="Next connect opens a fresh session">Forget token</button>
+      </div>
+      <div class="row wrap">
+        <label class="check"><input type="checkbox" name="auto" checked> auto-reconnect</label>
+        <label class="check"><input type="checkbox" name="resume" checked> resume</label>
+        <label class="check"><input type="checkbox" name="heartbeat" checked> heartbeat</label>
+      </div>
+
+      <form class="row subscribe">
+        <label>kind <input name="kind" value="conversation" required></label>
+        <label>id <input name="id" value="42"></label>
+        <button type="submit">Subscribe</button>
+      </form>
+      <ul class="chips subs"></ul>
+
+      <form class="row chat">
+        <input name="text" placeholder="message to the topic above" maxlength="500" autocomplete="off">
+        <button type="submit">Send</button>
+      </form>
+
+      <div class="row wrap">
+        <button type="button" data-action="ping">Ping</button>
+        <button type="button" data-action="typing">Typing</button>
+        <button type="button" data-action="flood" title="30 pings at once: trips the rate limiter">Flood</button>
+        <button type="button" data-action="clear">Clear log</button>
+      </div>
+
+      <details class="raw">
+        <summary>Raw frame</summary>
+        <form class="stack">
+          <textarea name="raw" rows="3" spellcheck="false">{"type": "subscribe", "topic_kind": "presence"}</textarea>
+          <div class="row">
+            <button type="submit">Send raw</button>
+            <span class="hint">Sent as is: try invalid JSON, unknown fields, <code>resume</code> mid-stream…</span>
+          </div>
+        </form>
+      </details>
+
+      <ol class="log"></ol>
+    </article>
+  </template>
+</body>
+</html>

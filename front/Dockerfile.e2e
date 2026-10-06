@@ -1,0 +1,29 @@
+# E2E runner image (WebKit/Safari without sudo).
+#
+# The official Playwright image ships every browser + their system libraries,
+# so WebKit works on hosts where `npx playwright install-deps` is not possible.
+#
+# Usage (dev stack must be running: `make dev`):
+#   1. On the host, once, generate the forged sessions:
+#        npx playwright test --project=chromium
+#      (or run any project; it triggers global.setup.ts)
+#   2. Run WebKit inside this image, sharing the host network so it can reach
+#      https://localhost:8443:
+#        docker run --rm -it --network host \
+#          -v "$PWD/.auth":/work/.auth:z \
+#          -v "$PWD/playwright-report":/work/playwright-report:z \
+#          -e SKIP_GLOBAL_SETUP=1 \
+#          lb42-e2e npx playwright test --project=webkit
+#
+# .dockerignore excludes node_modules / .next, so the image gets a clean
+# `npm ci` and never sees the host's sgoinfre symlinks.
+
+FROM mcr.microsoft.com/playwright:v1.63.0-jammy
+WORKDIR /work
+
+COPY package.json package-lock.json ./
+RUN npm ci
+
+COPY . .
+
+CMD ["npx", "playwright", "test"]

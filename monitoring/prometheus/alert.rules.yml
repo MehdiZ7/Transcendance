@@ -1,0 +1,31 @@
+groups:
+  - name: transcendence_alerts
+    rules:
+      # Alert if the backend API is down
+      - alert: BackendDown
+        expr: up{job="fastapi-backend"} == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "L'API FastAPI ne répond plus"
+          description: "L'instance {{ $labels.instance }} est tombée depuis plus de 30 secondes."
+
+      # Alert if the 5xx error rate exceeds 5%
+      - alert: HighHttpErrorRate
+        expr: (sum(rate(http_requests_total{status=~"5.."}[1m])) / sum(rate(http_requests_total[1m]))) * 100 > 5
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Taux d'erreurs 500 élevé"
+          description: "Plus de 5% des requêtes renvoient une erreur 5xx."
+
+      # Alert if the PostgreSQL database is unreachable
+      - alert: PostgresDown
+        expr: pg_up == 0
+        for: 30s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Base de données PostgreSQL inaccessible"

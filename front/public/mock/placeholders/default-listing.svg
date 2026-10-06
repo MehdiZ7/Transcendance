@@ -1,0 +1,65 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0f172a" />
+      <stop offset="50%" stop-color="#1e293b" />
+      <stop offset="100%" stop-color="#090d16" />
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="45%" r="40%">
+      <stop offset="0%" stop-color="#00babc" stop-opacity="0.25" />
+      <stop offset="100%" stop-color="#00babc" stop-opacity="0" />
+    </radialGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#000000" flood-opacity="0.5" />
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#bg)" />
+  <rect width="800" height="600" fill="url(#glow)" />
+
+  <!-- Subtle Grid Pattern -->
+  <g opacity="0.06" stroke="#ffffff" stroke-width="1">
+    <line x1="0" y1="100" x2="800" y2="100" />
+    <line x1="0" y1="200" x2="800" y2="200" />
+    <line x1="0" y1="300" x2="800" y2="300" />
+    <line x1="0" y1="400" x2="800" y2="400" />
+    <line x1="0" y1="500" x2="800" y2="500" />
+    <line x1="100" y1="0" x2="100" y2="600" />
+    <line x1="200" y1="0" x2="200" y2="600" />
+    <line x1="300" y1="0" x2="300" y2="600" />
+    <line x1="400" y1="0" x2="400" y2="600" />
+    <line x1="500" y1="0" x2="500" y2="600" />
+    <line x1="600" y1="0" x2="600" y2="600" />
+    <line x1="700" y1="0" x2="700" y2="600" />
+  </g>
+
+  <!-- Central Emblem Container -->
+  <g transform="translate(400, 260)" filter="url(#shadow)">
+    <!-- Outer Ring -->
+    <circle r="72" fill="#1e293b" stroke="#334155" stroke-width="2" />
+    <circle r="60" fill="#0f172a" stroke="#00babc" stroke-width="2" stroke-dasharray="8 4" opacity="0.8" />
+    
+    <!-- Image Placeholder Icon -->
+    <path d="M-28 -16 C-28 -22 -22 -28 -16 -28 L16 -28 C22 -28 28 -22 28 -16 L28 16 C28 22 22 28 16 28 L-16 28 C-22 28 -28 22 -28 16 Z" 
+          fill="none" stroke="#94a3b8" stroke-width="2.5" stroke-linejoin="round" />
+    <circle cx="-10" cy="-10" r="5" fill="#00babc" />
+    <path d="M-27 15 L-9 -3 L7 13 L17 3 L27 13 L27 16 C27 22 22 27 16 27 L-16 27 C-22 27 -27 22 -27 16 Z" 
+          fill="#334155" opacity="0.7" />
+    <path d="M-27 15 L-9 -3 L7 13 L17 3 L27 13" 
+          fill="none" stroke="#00babc" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" />
+  </g>
+
+  <!-- Brand Badge & Text -->
+  <g transform="translate(400, 390)" text-anchor="middle">
+    <rect x="-70" y="-14" width="140" height="28" rx="14" fill="#00babc" fill-opacity="0.15" stroke="#00babc" stroke-width="1" />
+    <text y="4" fill="#00babc" font-family="system-ui, -apple-system, sans-serif" font-size="13" font-weight="700" letter-spacing="1.5">LEBON42</text>
+  </g>
+
+  <text x="400" y="445" text-anchor="middle" fill="#f8fafc" font-family="system-ui, -apple-system, sans-serif" font-size="20" font-weight="600">
+    Photo à venir
+  </text>
+  <text x="400" y="475" text-anchor="middle" fill="#64748b" font-family="system-ui, -apple-system, sans-serif" font-size="14">
+    Annonce vérifiée sur le campus 42
+  </text>
+</svg>
